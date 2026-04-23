@@ -14,7 +14,7 @@ local function finder_fn(current_file_type, bang)
     })
 
     local items = {}
-    for _, item in pairs(results) do
+    for _, item in ipairs(results) do
       table.insert(items, {
         text = item.display,
         dash_item = item,
