@@ -33,11 +33,12 @@ local function check_fuzzy_finder()
   end
 
   local snacks_ok, snacks = pcall(require, 'snacks')
-  if snacks_ok and snacks and snacks.picker then
+  local snacks_picker_ok = snacks_ok and snacks and snacks.picker
+  if snacks_picker_ok then
     health_ok("Fuzzy finder plugin 'snacks' is installed.")
   end
 
-  if not telescope_ok and not fzf_lua_ok and not snap_ok and not (snacks_ok and snacks and snacks.picker) then
+  if not telescope_ok and not fzf_lua_ok and not snap_ok and not snacks_picker_ok then
     health_error('No supported fuzzy finder plugins are installed.')
   end
 end
