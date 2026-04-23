@@ -14,6 +14,13 @@ local function load_fzf_lua_extension()
   end
 end
 
+local function load_snacks_extension()
+  local ok, snacks = pcall(require, 'snacks')
+  if ok and snacks and snacks.picker then
+    snacks.picker.dash = require('dash.providers.snacks').dash
+  end
+end
+
 function M.init()
   -- check if `make install` was run
   local ok, libdash = pcall(require, 'libdash_nvim')
@@ -27,6 +34,7 @@ function M.init()
 
   load_telescope_extension()
   load_fzf_lua_extension()
+  load_snacks_extension()
 
   vim.g.loaded_dash_vim = true
 end

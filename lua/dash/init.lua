@@ -15,6 +15,11 @@ function M.search(bang, initial_text)
     return require('dash.providers.fzf-lua').dash(opts)
   end
 
+  local snacks_installed, snacks = pcall(require, 'snacks')
+  if snacks_installed and snacks and snacks.picker then
+    return require('dash.providers.snacks').dash(opts)
+  end
+
   local snap_installed, _ = pcall(require, 'snap')
   if snap_installed then
     return require('dash.providers.snap').dash(opts)

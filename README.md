@@ -32,6 +32,7 @@ This plugin must be loaded _after_ your fuzzy finder plugin of choice. Currently
 
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua)
+- [snacks.nvim](https://github.com/folke/snacks.nvim)
 - [snap](https://github.com/camspiers/snap)
 
 After installing Dash.nvim, you must run `make install`. This can be done through a post-install hook with most plugin managers.
@@ -96,6 +97,8 @@ If using Telescope, you can also run `:Telescope dash search` or `:Telescope das
 
 If using fzf-lua, you can also run `:FzfLua dash` or `:lua require('fzf-lua').dash({ bang = false, initial_text = '' })`.
 
+If using snacks.nvim, you can also run `:lua Snacks.picker.dash({ bang = false, initial_text = '' })`.
+
 If using Snap, you can also run `:lua require('dash.providers.snap').dash({ bang = false, initial_text = '' })`.
 
 ## Configuration
@@ -149,7 +152,7 @@ require('telescope').setup({
 })
 ```
 
-### With fzf-lua or Snap
+### With fzf-lua, snacks or Snap
 
 ```lua
 require('dash').setup({
@@ -170,7 +173,7 @@ require('dash').setup(config)
 
 ```lua
 --- This will bind to the first fuzzy finder it finds to be available,
---- checked in order: telescope, fzf-lua
+--- checked in order: telescope, fzf-lua, snacks, snap
 ---@param bang boolean @bang searches without any filtering
 ---@param initial_text string @pre-fill text into the finder prompt
 require('dash').search(bang, initial_text)
@@ -317,7 +320,7 @@ vim.opt.runtimepath:append('~/git/dash.nvim') -- or whatever your local path is
 
 There is also a `make dev` task which will set the `$DASH_NVIM_DEV` environment variable and open `nvim` for you.
 When the `$DASH_NVIM_DEV` environment variable is set, there will be an extra command available, `:DashDevReload`.
-This will reload Telescope, fzf-lua, and Snap (whichever ones you have installed), as well as the `dash` and `libdash_nvim`
+This will reload Telescope, fzf-lua, snacks, and Snap (whichever ones you have installed), as well as the `dash` and `libdash_nvim`
 Lua modules.
 
 To recompile the Rust backend for your machine's CPU architecture and install the module, run `make build-local install`.

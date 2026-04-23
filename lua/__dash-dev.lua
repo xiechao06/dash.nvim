@@ -16,6 +16,11 @@ function M.reload_dash()
     reload('fzf-lua')
   end
 
+  local snacks_ok, _ = pcall(require, 'snacks')
+  if snacks_ok then
+    reload('snacks')
+  end
+
   local snap_ok, _ = pcall(require, 'snap')
   if snap_ok then
     reload('snap')

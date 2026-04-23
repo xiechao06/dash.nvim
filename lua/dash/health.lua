@@ -32,7 +32,12 @@ local function check_fuzzy_finder()
     health_ok("Fuzzy finder plugin 'snap' is installed.")
   end
 
-  if not telescope_ok and not fzf_lua_ok and not snap_ok then
+  local snacks_ok, snacks = pcall(require, 'snacks')
+  if snacks_ok and snacks and snacks.picker then
+    health_ok("Fuzzy finder plugin 'snacks' is installed.")
+  end
+
+  if not telescope_ok and not fzf_lua_ok and not snap_ok and not (snacks_ok and snacks and snacks.picker) then
     health_error('No supported fuzzy finder plugins are installed.')
   end
 end
@@ -49,7 +54,10 @@ function M.check()
   check_fuzzy_finder()
 
   -- ensure config is setup
-  require('telescope').load_extension('dash')
+  local telescope_ok, telescope = pcall(require, 'telescope')
+  if telescope_ok and telescope then
+    telescope.load_extension('dash')
+  end
 
   health_start('Configuration')
   local config = require('libdash_nvim').config
